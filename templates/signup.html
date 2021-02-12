@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-
-
 {% block content %}
-<h1>SignUp</h1>
-    <from method=" post" novalidate>
+
+ <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-    <button type="submit" class="btn btn-primary"> Create new user</button>
-    </from>
+        <button type="submit">Creat a new User</button>
+    </form>
 {% endblock %}
