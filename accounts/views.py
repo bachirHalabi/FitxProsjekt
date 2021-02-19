@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login as auth_login, login
+from django.contrib.auth import login as auth_login, login, authenticate
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
@@ -66,10 +66,29 @@ def user_register(request):
                 login(request, user)
 
                 # redirect to accounts page:
-                return HttpResponseRedirect('home')
+                return HttpResponseRedirect('khara')
 
     # No post data availabe, let's just show the page.
     else:
         form = RegisterForm()
 
     return render(request, template, {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        # Process the request if posted data are available
+        username = request.POST['username']
+        password = request.POST['password']
+        # Check username and password combination if correct
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # Save session as cookie to login the user
+            login(request, user)
+            # Success, now let's login the user.
+            return render(request, 'login.html')
+        else:
+            # Incorrect credentials, let's throw an error to the screen.
+            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
+    else:
+        # No post data availabe, let's just show the page to the user.
+        return render(request, 'login.html')

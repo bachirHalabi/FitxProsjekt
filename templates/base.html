@@ -191,7 +191,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+      {%if user.is_authenticated%}
+             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
 
       <li class="nav-item">
@@ -211,14 +213,41 @@
         <a class="nav-link" href="#">Hi, welcom back {{ user.username}}!!</a>
       </li>
       </ul>
+          <a href={% url 'logout' %}>Log out</a>
+
+      {% else %}
+           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">Matplan</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">trenningsplan</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="#">Blog</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'home'  %}">Kalori Kalkolator</a>
+      </li>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">Welcome, login or signup</a>
+      </li>
+      </ul>
+
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
         <a class="nav-link" href="{% url 'user_register'  %}">sign up</a>
       </li>
         <li class="nav-item ">
-        <a class="nav-link navbar-nav" href="#">Log in</a>
+        <a class="nav-link navbar-nav" href="{% url 'login' %}">Log in</a>
       </li>
     </ul>
+      {% endif %}
+
+
 
   </div>
 </nav>
