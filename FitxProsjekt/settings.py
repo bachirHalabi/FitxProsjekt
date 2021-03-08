@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Calories.apps.CaloriesConfig',
     'accounts',
-    'boards'
+    'boards',
+    'workoutPlan',
 ]
 
 MIDDLEWARE = [
